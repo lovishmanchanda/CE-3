@@ -1,0 +1,10 @@
+<h1>Approve/Reject Adoption Request</h1>
+<h3>Pet: {{ adoption_request.pet.name }}</h3>
+<p>Adopter: {{ adoption_request.adopter.name }}</p>
+<p>Status: {{ adoption_request.get_status_display }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" name="approve">Approve</button>
+    <button type="submit" name="reject">Reject</button>
+</form>

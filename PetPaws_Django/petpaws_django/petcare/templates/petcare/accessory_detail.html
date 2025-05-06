@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-4">
+  <div class="card shadow border-secondary">
+    {% if accessory.image %}
+    <img src="{{ accessory.image.url }}" class="card-img-top" style="max-height: 400px; object-fit: cover;">
+    {% endif %}
+    <div class="card-body">
+      <h2>{{ accessory.name }}</h2>
+      <p><strong>Category:</strong> {{ accessory.category }}</p>
+      <p>{{ accessory.description }}</p>
+      <p><strong>Price:</strong> ₹{{ accessory.price }}</p>
+      <form method="post" action="{% url 'add_to_cart' 'accessory' accessory.id %}">
+        {% csrf_token %}
+        <input type="number" name="quantity" value="1" min="1" class="form-control w-25">
+        <button class="btn btn-success mt-2">Add to Cart</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

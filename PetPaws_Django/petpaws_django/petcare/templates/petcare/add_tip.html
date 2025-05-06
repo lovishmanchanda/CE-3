@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .input-sun {
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .input-sun input,
+  .input-sun select,
+  .input-sun textarea {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 248, 220, 0.8);
+    border: 1px solid #ffe082;
+    border-radius: 14px;
+    transition: all 0.3s ease;
+    outline: none;
+  }
+
+  .input-sun label {
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    background-color: #fff8e1;
+    font-size: 0.9rem;
+    padding: 0 6px;
+    color: #f9a825;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  .input-sun input:focus,
+  .input-sun select:focus,
+  .input-sun textarea:focus {
+    border-color: #ffd54f;
+    box-shadow: 0 0 0 3px rgba(255, 213, 79, 0.3);
+  }
+
+  .form-yellow-box {
+    background: linear-gradient(135deg, #fffde7, #fff8e1);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid #ffe082;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .btn-sunny {
+    background-color: #fbc02d;
+    color: #fff;
+    border-radius: 25px;
+    font-weight: 600;
+    padding: 12px;
+    transition: 0.3s;
+  }
+
+  .btn-sunny:hover {
+    background-color: #f9a825;
+    transform: translateY(-1px);
+  }
+
+  .tip-table {
+    margin-top: 3rem;
+    background-color: #fef7e5;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  .tip-table h4 {
+    color: #fbc02d;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  .table thead {
+    background-color: #ffecb3;
+  }
+
+  .table td, .table th {
+    vertical-align: middle;
+  }
+
+  .product-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+</style>
+
+<div class="container my-5" style="font-family: 'Segoe UI', sans-serif;">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold" style="font-size: 2.5rem; color: #fbc02d;">
+      <i class="fas fa-lightbulb me-2"></i> Add Pet Care Tip
+    </h2>
+    <p class="text-muted">Share useful advice to help pet parents care better for their companions.</p>
+  </div>
+
+  <div class="form-yellow-box mx-auto" style="max-width: 600px;">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="input-sun">
+          {{ field }}
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {% for error in field.errors %}
+            <div class="text-danger small">{{ error }}</div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-sunny w-100 mt-2">
+        <i class="fas fa-plus-circle me-1"></i> Add Tip
+      </button>
+    </form>
+  </div>
+
+  {% if tips %}
+  <div class="tip-table mt-5">
+    <h4><i class="fas fa-lightbulb me-2"></i> Manage Pet Care Tips</h4>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Tip Content</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for tip in tips %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ tip.title }}</td>
+            <td>{{ tip.content|truncatewords:10 }}</td>
+            <td>
+              <a href="{% url 'delete_tip' tip.id %}" class="btn btn-sm btn-danger"
+                 onclick="return confirm('Are you sure you want to delete this tip?');">
+                <i class="fas fa-trash"></i> Delete
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

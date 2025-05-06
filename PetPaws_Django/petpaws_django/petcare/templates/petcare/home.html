@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #fdfdfd !important;
+    }
+
+    .petcare-heading {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 2.5rem;
+        color: #ff6f61;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .petcare-section .card {
+        background-color: #fff9f8;
+        border: none;
+        border-radius: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+    }
+
+    .petcare-section .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .petcare-section .card-body i {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        color: #ff6f61;
+    }
+
+    .petcare-section .card-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .petcare-section .card-text {
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .cart-button {
+        background-color: #ff6f61;
+        border: none;
+        padding: 10px 25px;
+        font-size: 1.1rem;
+        border-radius: 30px;
+        margin-top: 40px;
+        transition: background-color 0.3s ease;
+    }
+
+    .cart-button:hover {
+        background-color: #ff8a75;
+    }
+</style>
+
+<div class="container my-5 petcare-section">
+    <h1 class="petcare-heading"><i class="fas fa-heartbeat me-2"></i>PetCare Hub</h1>
+
+    <div class="row g-4 text-center">
+        <div class="col-md-4">
+            <a href="{% url 'view_food' %}" class="text-decoration-none">
+                <div class="card h-100 p-3">
+                    <div class="card-body">
+                        <i class="fas fa-bone"></i>
+                        <h5 class="card-title mt-2">Pet Food</h5>
+                        <p class="card-text">Delicious and healthy meals for your furballs.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="{% url 'view_medicines' %}" class="text-decoration-none">
+                <div class="card h-100 p-3">
+                    <div class="card-body">
+                        <i class="fas fa-pills"></i>
+                        <h5 class="card-title mt-2">Medicines</h5>
+                        <p class="card-text">For happy tails and fast healing.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="{% url 'view_clothes' %}" class="text-decoration-none">
+                <div class="card h-100 p-3">
+                    <div class="card-body">
+                        <i class="fas fa-tshirt"></i>
+                        <h5 class="card-title mt-2">Clothes</h5>
+                        <p class="card-text">Dress them cute and cozy.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="{% url 'view_accessories' %}" class="text-decoration-none">
+                <div class="card h-100 p-3">
+                    <div class="card-body">
+                        <i class="fas fa-dog"></i>
+                        <h5 class="card-title mt-2">Accessories</h5>
+                        <p class="card-text">Toys, collars, beds & more.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="{% url 'view_hospitals' %}" class="text-decoration-none">
+                <div class="card h-100 p-3">
+                    <div class="card-body">
+                        <i class="fas fa-hospital"></i>
+                        <h5 class="card-title mt-2">Pet Hospitals</h5>
+                        <p class="card-text">Locate nearby care centers.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="{% url 'view_tips' %}" class="text-decoration-none">
+                <div class="card h-100 p-3">
+                    <div class="card-body">
+                        <i class="fas fa-lightbulb"></i>
+                        <h5 class="card-title mt-2">Care Tips</h5>
+                        <p class="card-text">Tips to keep your pet healthy & happy.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Cart Button -->
+    <div class="text-center">
+        <a href="{% url 'view_cart' %}" class="btn cart-button">
+            <i class="fas fa-shopping-cart me-2"></i>View Cart
+        </a>
+    </div>
+</div>
+{% endblock %}

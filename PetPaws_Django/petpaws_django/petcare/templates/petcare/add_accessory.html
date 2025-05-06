@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .animated-input { /* Your existing form styles */ }
+  .glass-card { /* Your existing card style */ }
+  .btn-glass { /* Your existing button style */ }
+
+  /* Table section styles */
+  .accessory-table {
+    margin-top: 3rem;
+    background-color: #e9f7ef;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  .accessory-table h4 {
+    color: #2b9e62;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  .table thead {
+    background-color: #d6f5dd;
+  }
+
+  .table td, .table th {
+    vertical-align: middle;
+  }
+
+  .accessory-image {
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #a5d6a7;
+  }
+  .animated-input {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+  .animated-input input,
+  .animated-input select,
+  .animated-input textarea {
+    width: 100%;
+    padding: 1rem 1rem 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+    outline: none;
+  }
+
+  .animated-input label {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: #f8f9fa;
+    padding: 0 5px;
+    color: #999;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    border-radius: 5px;
+  }
+
+  .animated-input input:focus + label,
+  .animated-input input:not(:placeholder-shown) + label,
+  .animated-input textarea:focus + label,
+  .animated-input textarea:not(:placeholder-shown) + label,
+  .animated-input select:focus + label,
+  .animated-input select:not([value=""]) + label {
+    top: -0.6rem;
+    font-size: 0.8rem;
+    color: #2b9e62;
+  }
+
+  .animated-input input:focus,
+  .animated-input textarea:focus,
+  .animated-input select:focus {
+    border-color: #2b9e62;
+    box-shadow: 0 0 0 0.15rem rgba(43, 158, 98, 0.25);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #d6f5dd;
+    backdrop-filter: blur(8px);
+  }
+
+  .btn-glass {
+    border-radius: 30px;
+    padding: 12px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #2b9e62, #49cc98);
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .btn-glass:hover {
+    background: linear-gradient(135deg, #249e56, #38b383);
+    transform: scale(1.03);
+  }
+</style>
+
+<div class="container my-5" style="font-family: 'Segoe UI', sans-serif;">
+  <!-- Form Heading -->
+  <div class="text-center mb-4">
+    <h2 class="fw-bold" style="font-size: 2.5rem; color: #2b9e62;">
+      <i class="fas fa-bone me-2"></i> Add New Pet Accessory
+    </h2>
+    <p class="text-muted">Fill in the details below to list a new accessory.</p>
+  </div>
+
+  <!-- Form -->
+  <div class="glass-card mx-auto" style="max-width: 600px;">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="animated-input">
+          {{ field }}
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {% for error in field.errors %}
+            <div class="text-danger small">{{ error }}</div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-glass w-100 mt-2">
+        <i class="fas fa-plus-circle me-1"></i> Add Accessory
+      </button>
+    </form>
+  </div>
+
+  <!-- Table -->
+  <div class="accessory-table mt-5">
+    <h4><i class="fas fa-boxes me-2"></i> All Accessories</h4>
+    {% if accessories %}
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Price</th>
+              <th>Orders</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in accessories %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>
+                {% if item.image %}
+                  <img src="{{ item.image.url }}" class="accessory-image" alt="{{ item.name }}">
+                {% else %}
+                  <span class="text-muted">No Image</span>
+                {% endif %}
+              </td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.type }}</td>
+              <td>₹{{ item.price }}</td>
+              <td>0</td> <!-- Update this later if orders are implemented -->
+              <td>
+                <a href="{% url 'delete_accessory' item.id %}" class="btn btn-sm btn-danger"
+                   onclick="return confirm('Are you sure you want to delete this accessory?');">
+                   <i class="fas fa-trash"></i> Delete
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="text-muted">No accessories added yet.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

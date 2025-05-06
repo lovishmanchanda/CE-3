@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Ubuntu', sans-serif;
+  }
+
+  .hospital-list {
+    background: linear-gradient(135deg, #f0fdfa, #e0f7ec);
+    border-radius: 20px;
+    padding: 30px;
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .card {
+    border: none;
+    border-radius: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-title {
+    color: #2b9e62;
+    font-weight: 700;
+  }
+
+  .btn-primary {
+    background-color: #2b9e62;
+    border-color: #2b9e62;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #257c50;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+</style>
+
+<div class="container my-5">
+  <h2 class="text-center mb-5" style="font-size: 2.5rem; color: #2b9e62;">🏥 Nearby Pet Hospitals</h2>
+
+  <section class="hospital-list">
+    <div class="row">
+
+      <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+        <div class="card shadow-sm w-100">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="card-title">Happy Paws Pet Clinic</h5>
+              <p class="card-text"><strong>Location:</strong> Downtown Street 101</p>
+              <p class="card-text"><strong>Contact:</strong> (123) 456-7890</p>
+            </div>
+            <a href="https://www.happypawspetclinic.com" target="_blank" class="btn btn-primary mt-3">Visit Website</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+        <div class="card shadow-sm w-100">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="card-title">Paws & Claws Animal Hospital</h5>
+              <p class="card-text"><strong>Location:</strong> Elm St. 44</p>
+              <p class="card-text"><strong>Contact:</strong> (987) 654-3210</p>
+            </div>
+            <a href="https://www.pawsandclaws.com" target="_blank" class="btn btn-primary mt-3">Visit Website</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+        <div class="card shadow-sm w-100">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="card-title">VetCare Clinic</h5>
+              <p class="card-text"><strong>Location:</strong> Oak Road 78</p>
+              <p class="card-text"><strong>Contact:</strong> (555) 123-4567</p>
+            </div>
+            <a href="https://www.vetcareclinic.com" target="_blank" class="btn btn-primary mt-3">Visit Website</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+        <div class="card shadow-sm w-100">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="card-title">Animal Care Hospital</h5>
+              <p class="card-text"><strong>Location:</strong> Maple Avenue 25</p>
+              <p class="card-text"><strong>Contact:</strong> (432) 765-4321</p>
+            </div>
+            <a href="https://www.animalcarehospital.com" target="_blank" class="btn btn-primary mt-3">Visit Website</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+        <div class="card shadow-sm w-100">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="card-title">GreenLeaf Pet Hospital</h5>
+              <p class="card-text"><strong>Location:</strong> Sunrise Blvd 12</p>
+              <p class="card-text"><strong>Contact:</strong> (800) 321-9898</p>
+            </div>
+            <a href="https://www.greenleafpets.com" target="_blank" class="btn btn-primary mt-3">Visit Website</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+        <div class="card shadow-sm w-100">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="card-title">Urban Tail Veterinary</h5>
+              <p class="card-text"><strong>Location:</strong> West End Lane 9</p>
+              <p class="card-text"><strong>Contact:</strong> (900) 888-2323</p>
+            </div>
+            <a href="https://www.urbantailvet.com" target="_blank" class="btn btn-primary mt-3">Visit Website</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+        <div class="card shadow-sm w-100">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="card-title">Healing Paws Veterinary</h5>
+              <p class="card-text"><strong>Location:</strong> Hilltop Drive 55</p>
+              <p class="card-text"><strong>Contact:</strong> (999) 343-3434</p>
+            </div>
+            <a href="https://www.healingpawsvet.com" target="_blank" class="btn btn-primary mt-3">Visit Website</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+{% endblock %}

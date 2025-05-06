@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-4">
+  <div class="card shadow-lg border-danger">
+    {% if medicine.image %}
+    <img src="{{ medicine.image.url }}" class="card-img-top" style="max-height: 400px; object-fit: cover;">
+    {% endif %}
+    <div class="card-body">
+      <h2 class="card-title">{{ medicine.name }}</h2>
+      <p><strong>Usage:</strong> {{ medicine.usage }}</p>
+      <p>{{ medicine.description }}</p>
+      <p><strong>Price:</strong> ₹{{ medicine.price }}</p>
+      <form method="post" action="{% url 'add_to_cart' 'medicine' medicine.id %}">
+        {% csrf_token %}
+        <input type="number" name="quantity" value="1" min="1" class="form-control w-25">
+        <button type="submit" class="btn btn-danger mt-2">Add to Cart</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

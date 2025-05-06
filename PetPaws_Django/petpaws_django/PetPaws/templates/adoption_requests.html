@@ -1,0 +1,18 @@
+<h1>Your Adoption Requests</h1>
+{% for request in requests %}
+    <div>
+        <h3>{{ request.pet.name }}</h3>
+        <p>Adopter: {{ request.adopter.name }}</p>
+        <p>Status: {{ request.get_status_display }}</p>
+        <p>
+            {% if request.status == 'Under Review' %}
+                <a href="{% url 'approve_adoption_request' request.id %}?action=approve">Approve</a>
+                <a href="{% url 'approve_adoption_request' request.id %}?action=reject">Reject</a>
+            {% else %}
+                <p>Request {{ request.status }}</p>
+            {% endif %}
+        </p>
+    </div>
+{% empty %}
+    <p>No adoption requests.</p>
+{% endfor %}

@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .input-glass {
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .input-glass input,
+  .input-glass select,
+  .input-glass textarea {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(240, 255, 251, 0.8);
+    border: 1px solid #b2dfdb;
+    border-radius: 14px;
+    transition: all 0.3s ease;
+    outline: none;
+  }
+
+  .input-glass label {
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    background-color: #e0f2f1;
+    font-size: 0.9rem;
+    padding: 0 6px;
+    color: #00796b;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  .input-glass input:focus,
+  .input-glass select:focus,
+  .input-glass textarea:focus {
+    border-color: #4db6ac;
+    box-shadow: 0 0 0 3px rgba(77, 182, 172, 0.3);
+  }
+
+  .form-container {
+    background: linear-gradient(135deg, #e0f7fa, #e8f5e9);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid #b2ebf2;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .btn-mint {
+    background-color: #00bfa5;
+    color: #fff;
+    border-radius: 25px;
+    font-weight: 600;
+    padding: 12px;
+    transition: 0.3s;
+  }
+
+  .btn-mint:hover {
+    background-color: #00897b;
+    transform: translateY(-1px);
+  }
+
+  .medicine-table {
+    margin-top: 3rem;
+    background-color: #e7f4fb;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  .medicine-table h4 {
+    color: #00bfa5;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  .table thead {
+    background-color: #d2eefe;
+  }
+
+  .table td, .table th {
+    vertical-align: middle;
+  }
+
+  .product-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+</style>
+
+<div class="container my-5" style="font-family: 'Segoe UI', sans-serif;">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold" style="font-size: 2.5rem; color: #00bfa5;">
+      <i class="fas fa-capsules me-2"></i> Add Pet Medicine
+    </h2>
+    <p class="text-muted">Provide necessary medication info for your furry patients.</p>
+  </div>
+
+  <div class="form-container mx-auto" style="max-width: 600px;">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="input-glass">
+          {{ field }}
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {% for error in field.errors %}
+            <div class="text-danger small">{{ error }}</div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-mint w-100 mt-2">
+        <i class="fas fa-plus-circle me-1"></i> Add Medicine
+      </button>
+    </form>
+  </div>
+
+  {% if medicines %}
+  <div class="medicine-table mt-5">
+    <h4><i class="fas fa-boxes me-2"></i> Manage Medicine</h4>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Dosage</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in medicines %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+              {% if item.image %}
+                <img src="{{ item.image.url }}" class="product-image" alt="{{ item.name }}">
+              {% else %}
+                <span>No Image</span>
+              {% endif %}
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.type }}</td>
+            <td>{{ item.dosage }}</td>
+            <td>₹{{ item.price }}</td>
+            
+            <td>
+              <a href="{% url 'delete_medicine' item.id %}" class="btn btn-sm btn-danger"
+                 onclick="return confirm('Are you sure you want to delete this medicine item?');">
+                <i class="fas fa-trash"></i> Delete
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

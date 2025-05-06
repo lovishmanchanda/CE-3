@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-4">
+  <div class="card shadow-lg border-success">
+    {% if food.image %}
+    <img src="{{ food.image.url }}" class="card-img-top" style="max-height: 400px; object-fit: cover;">
+    {% endif %}
+    <div class="card-body">
+      <h2 class="card-title">{{ food.name }}</h2>
+      <p class="card-text"><strong>Brand:</strong> {{ food.brand }}</p>
+      <p class="card-text">{{ food.description }}</p>
+      <p><strong>Price:</strong> ₹{{ food.price }}</p>
+      <form method="post" action="{% url 'add_to_cart' 'food' food.id %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="quantity">Quantity:</label>
+          <input type="number" name="quantity" id="quantity" value="1" min="1" class="form-control w-25">
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Add to Cart</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

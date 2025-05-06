@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    /* Dashboard Styling */
+    .dashboard-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 30px;
+        background: linear-gradient(to right, #007bff, #6610f2);
+        color: white;
+        border-radius: 12px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .dashboard-header h2 {
+        font-size: 2.8rem;
+        font-weight: bold;
+    }
+
+    .dashboard-header p {
+        font-size: 1.2rem;
+    }
+
+    /* Dashboard Cards */
+    .dashboard-card {
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        color: white;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .dashboard-card i {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+
+    .users-card { background: linear-gradient(to right, #17a2b8, #007bff); }
+    .pets-card { background: linear-gradient(to right, #ffc107, #fd7e14); }
+    .reports-card { background: linear-gradient(to right, #28a745, #20c997); }
+    .settings-card { background: linear-gradient(to right, #6610f2, #6f42c1); }
+    .home-card { background: linear-gradient(to right, #dc3545, #c82333); }
+
+    .dashboard-card a {
+        color: white;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 15px;
+        padding: 8px 15px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.2);
+        transition: background 0.3s ease-in-out;
+    }
+
+    .dashboard-card a:hover {
+        background: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Responsive Layout */
+    @media (max-width: 768px) {
+        .dashboard-header h2 {
+            font-size: 2.2rem;
+        }
+        .dashboard-card {
+            margin-bottom: 20px;
+        }
+    }
+
+    /* Dashboard Cards */
+    .dashboard-card {
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        color: white;
+        background-color:rgb(50, 122, 194); 
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .dashboard-card i {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+
+    .users-card { background: linear-gradient(to right, #17a2b8, #007bff); }
+    .pets-card { background: linear-gradient(to right, #ffc107, #fd7e14); }
+    .reports-card { background: linear-gradient(to right, #28a745, #20c997); }
+    .settings-card { background: linear-gradient(to right, #6610f2, #6f42c1); }
+    .home-card { background: linear-gradient(to right, #dc3545, #c82333); }
+
+
+</style>
+
+<div class="container mt-5">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header mb-4">
+        <h2>Welcome, {{ request.user.name }}!</h2>
+        <p class="lead">Manage users, pets, and PetCare features from here.</p>
+    </div>
+
+    <!-- Dashboard Cards -->
+    <div class="row g-4">
+        <!-- Manage Users -->
+        <div class="col-md-4">
+            <div class="dashboard-card users-card">
+                <i class="fas fa-users"></i>
+                <h4>Manage Users</h4>
+                <p>View and manage all registered users.</p>
+                <a href="{% url 'manage_users' %}">Manage Users</a>
+            </div>
+        </div>
+
+        <!-- Manage Pets -->
+        <div class="col-md-4">
+            <div class="dashboard-card pets-card">
+                <i class="fas fa-paw"></i>
+                <h4>Manage Pets</h4>
+                <p>Review, edit pet listings & adoption requests.</p>
+                <a href="{% url 'manage_pets' %}">Go to Pets</a>
+            </div>
+        </div>
+
+        <!-- Manage Flask Pets -->
+        <div class="col-md-4">
+            <div class="dashboard-card home-card">
+                <i class="fas fa-paw"></i>
+                <h4>Manage Flask Pets</h4>
+                <p>Manage Flask pets, add, update, and delete pets.</p>
+                <a href="{% url 'manageflask' %}">Manage Flask Pets</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- PetCare Admin Section -->
+    <hr class="my-5">
+    <h3 class="mb-4">🛒 PetCare Admin</h3>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="dashboard-card food-card">
+                <i class="fas fa-bone"></i>
+                <h4>Food</h4>
+                <p>Add and manage pet food products.</p>
+                <a href="{% url 'add_food' %}">Manage Food</a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card clothes-card">
+                <i class="fas fa-tshirt"></i>
+                <h4>Clothes</h4>
+                <p>Add and manage pet clothing items.</p>
+                <a href="{% url 'add_clothes' %}">Manage Clothes</a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card med-card">
+                <i class="fas fa-capsules"></i>
+                <h4>Medicine</h4>
+                <p>Add and manage medicines for pets.</p>
+                <a href="{% url 'add_medicine' %}">Manage Medicine</a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card accessory-card">
+                <i class="fas fa-dog"></i>
+                <h4>Accessories</h4>
+                <p>Add and manage pet accessories.</p>
+                <a href="{% url 'add_accessory' %}">Manage Accessories</a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card hospital-card">
+                <i class="fas fa-hospital"></i>
+                <h4>Hospitals</h4>
+                <p>Add and manage pet hospitals.</p>
+                <a href="{% url 'add_hospital' %}">Manage Hospitals</a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card tips-card">
+                <i class="fas fa-lightbulb"></i>
+                <h4>Care Tips</h4>
+                <p>Add and manage helpful tips for pet care.</p>
+                <a href="{% url 'add_tip' %}">Manage Tips</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
